@@ -1,0 +1,287 @@
+<html><head><title>sxiv</title></head><body>
+<h1>sxiv</h1>
+
+<p><strong>Simple X Image Viewer</strong></p>
+
+<p>sxiv is an alternative to feh and qiv. Its only dependencies besides xlib are
+imlib2 and giflib. The primary goal for writing sxiv is to create an image
+viewer, which only has the most basic features required for fast image viewing
+(the ones I want). It has vi key bindings and works nicely with tiling window
+managers.  Its code base should be kept small and clean to make it easy for you
+to dig into it and customize it for your needs.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Basic image operations, e.g. zooming, panning, rotating</li>
+<li>Customizable key and mouse button mappings (in <em>config.h</em>)</li>
+<li>Thumbnail mode: grid of selectable previews of all images</li>
+<li>Ability to cache thumbnails for fast re-loading</li>
+<li>Basic support for multi-frame images</li>
+<li>Load all frames from GIF files and play GIF animations</li>
+<li>Display image information in status bar</li>
+</ul>
+
+<h2>Screenshots</h2>
+
+<p><strong>Image mode:</strong></p>
+
+<p><img src="http://muennich.github.com/sxiv/img/image.png" alt="Image" title="Image mode" /></p>
+
+<p><strong>Thumbnail mode:</strong></p>
+
+<p><img src="http://muennich.github.com/sxiv/img/thumb.png" alt="Thumb" title="Thumb mode" /></p>
+
+<h2>Installation</h2>
+
+<p>sxiv is built using the commands:</p>
+
+<pre><code>$ make
+# make install
+</code></pre>
+
+<p>Please note, that the latter one requires root privileges.
+By default, sxiv is installed using the prefix "/usr/local", so the full path
+of the executable will be "/usr/local/bin/sxiv".</p>
+
+<p>You can install sxiv into a directory of your choice by changing the second
+command to:</p>
+
+<pre><code># make PREFIX="/your/dir" install
+</code></pre>
+
+<p>The build-time specific settings of sxiv can be found in the file <em>config.h</em>.
+Please check and change them, so that they fit your needs.
+If the file <em>config.h</em> does not already exist, then you have to create it with
+the following command:</p>
+
+<pre><code>$ make config.h
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>sxiv has two modes of operation: image and thumbnail mode. The default is
+image mode, in which only the current image is shown. In thumbnail mode a grid
+of small previews is displayed, making it easy to choose an image to open.</p>
+
+<p><strong>Command line options:</strong></p>
+
+<pre><code>-b           Do not show info bar on bottom of window
+-c           Remove all orphaned cache files from thumbnail cache and exit
+-d           Scale all images to 100%, but fit large images into window
+-F           Use size-hints to make the window fixed/floating
+-f           Start in fullscreen mode
+-g GEOMETRY  Set window position and size
+             (see section GEOMETRY SPECIFICATIONS of X(7))
+-i           Read file list from stdin
+-n NUM       Start at picture NUM
+-N NAME      Set X window resource name to NAME
+-o           Write file list to stdout when quitting
+-p           Pixelize, i.e. turn off image anti-aliasing
+-q           Be quiet, disable warnings
+-r           Search given directories recursively for images
+-s           Scale all images to fit into window
+-t           Start in thumbnail mode
+-v           Print version information and exit
+-Z           Same as `-z 100'
+-z ZOOM      Scale all images to current zoom level, use ZOOM at startup
+</code></pre>
+
+<p><strong>Key mappings:</strong></p>
+
+<pre><code>q            Quit sxiv
+Return       Switch to thumbnail mode / open selected image
+
+0-9          Prefix the next command with a number (denoted via [count])
+
+g            Go to first image
+G            Go to the last image, or image number [count]
+
+f            Toggle fullscreen mode (requires an EWMH/NetWM compliant
+             window manager)
+b            Toggle visibility of info bar on bottom of window
+A            Toggle visibility of alpha-channel, i.e. transparency
+
+r            Reload image
+R            Reload all thumbnails
+D            Remove image from file list and go to next image
+</code></pre>
+
+<p><em>Thumbnail mode:</em></p>
+
+<pre><code>h,j,k,l      Move selection left/down/up/right [count] times
+Ctrl-j,k     Scroll thumbnail grid one window height down/up
+</code></pre>
+
+<p><em>Image mode:</em></p>
+
+<pre><code>n,Space      Go [count] images forward
+p,Backspace  Go [count] images backward
+[,]          Go [count] * 10 images backward/forward
+
+Ctrl-n,p     Go to the next/previous frame of a multi-frame image
+Ctrl-Space   Play/pause animation of a multi-frame image
+
++            Zoom in
+-            Zoom out
+=            Set zoom level to 100%, or [count]%
+w            Fit image into window
+e            Fit image width to window width
+E            Fit image height to window height
+
+h,j,k,l      Pan image 1/5 of window width/height or [count] pixels
+             left/down/up/right (also with arrow keys)
+H,J,K,L      Pan to left/bottom/top/right image edge
+Ctrl-h,j,k,l Pan image one window width/height left/down/up/right
+             (also with Ctrl-arrow keys)
+
+&lt;,&gt;          Rotate image (counter-)clockwise by 90 degrees
+\,|          Flip image horizontally/vertically
+
+a            Toggle anti-aliasing
+W            Resize window to fit image
+</code></pre>
+
+<p><strong>Mouse button mappings:</strong></p>
+
+<p><em>Image mode:</em></p>
+
+<pre><code>Button1      Go to the next image
+Button2      Drag image with mouse while keeping it pressed
+Button3      Go to the previous image
+Scroll       Pan image up/down
+Shift+Scroll Pan image left/right
+Ctrl+Scroll  Zoom in/out
+</code></pre>
+
+<h2>Download &amp; Changelog</h2>
+
+<p>You can <a href="https://github.com/muennich/sxiv">browse</a> the source code repository
+on GitHub or get a copy using git with the following command:</p>
+
+<pre><code>git clone https://github.com/muennich/sxiv.git
+</code></pre>
+
+<p><strong>Stable releases</strong></p>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v1.1.tar.gz">v1.1</a></strong>
+<em>(March 30, 2013)</em></p>
+
+<ul>
+<li>Added status bar on bottom of window with customizable content</li>
+<li>New keyboard shortcuts <code>\</code>/<code>|</code>: flip image vertically/horizontally</li>
+<li>New keyboard shortcut <code>Ctrl-6</code>: go to last/alternate image</li>
+<li>Added own EXIF orientation handling, removed dependency on libexif</li>
+<li>Fixed various bugs</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v1.0.tar.gz">v1.0</a></strong>
+<em>(October 31, 2011)</em></p>
+
+<ul>
+<li>Support for multi-frame images &amp; GIF animations</li>
+<li>POSIX compliant (IEEE Std 1003.1-2001)</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.9.tar.gz">v0.9</a></strong>
+<em>(August 17, 2011)</em></p>
+
+<ul>
+<li>Made key and mouse mappings fully configurable in config.h</li>
+<li>Complete code refactoring</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.8.2.tar.gz">v0.8.2</a></strong>
+<em>(June 29, 2011)</em></p>
+
+<ul>
+<li>POSIX-compliant Makefile; compiles under NetBSD</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.8.1.tar.gz">v0.8.1</a></strong>
+<em>(May 8, 2011)</em></p>
+
+<ul>
+<li>Fixed fullscreen under window managers, which are not fully EWMH-compliant</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.8.tar.gz">v0.8</a></strong>
+<em>(April 18, 2011)</em></p>
+
+<ul>
+<li>Support for thumbnail caching, only enabled if directory <code>~/.sxiv/</code> exists</li>
+<li>Ability to run external commands (e.g. jpegtran, convert) on current image</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.7.tar.gz">v0.7</a></strong>
+<em>(February 26, 2011)</em></p>
+
+<ul>
+<li>Sort directory entries when using <code>-r</code> command line option</li>
+<li>Hide cursor in image mode</li>
+<li>Full functional thumbnail mode, use Return key to switch between image and
+thumbnail mode</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.6.tar.gz">v0.6</a></strong>
+<em>(February 16, 2011)</em></p>
+
+<ul>
+<li>Bug fix: Correctly display filenames with umlauts in window title</li>
+<li>Basic support of thumbnails</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.5.tar.gz">v0.5</a></strong>
+<em>(February 6, 2011)</em></p>
+
+<ul>
+<li>New command line option: <code>-r</code>: open all images in given directories</li>
+<li>New key shortcuts: <code>w</code>: resize image to fit into window; <code>W</code>: resize window
+to fit to image</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.4.tar.gz">v0.4</a></strong>
+<em>(February 1, 2011)</em></p>
+
+<ul>
+<li>New command line option: <code>-F</code>, <code>-g</code>: use fixed window dimensions and apply
+a given window geometry</li>
+<li>New key shortcut: <code>r</code>: reload current image</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.3.1.tar.gz">v0.3.1</a></strong>
+<em>(January 30, 2011)</em></p>
+
+<ul>
+<li>Bug fix: Do not set setuid bit on executable when using <code>make install</code></li>
+<li>Pan image with mouse while pressing middle mouse button</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.3.tar.gz">v0.3</a></strong>
+<em>(January 29, 2011)</em></p>
+
+<ul>
+<li>New command line options: <code>-d</code>, <code>-f</code>, <code>-p</code>, <code>-s</code>, <code>-v</code>, <code>-w</code>, <code>-Z</code>, <code>-z</code></li>
+<li>More mouse mappings: Go to next/previous image with left/right click,
+scroll image with mouse wheel (horizontally if Shift key is pressed),
+zoom image with mouse wheel if Ctrl key is pressed</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.2.tar.gz">v0.2</a></strong>
+<em>(January 23, 2011)</em></p>
+
+<ul>
+<li>Bug fix: Handle window resizes correctly</li>
+<li>New keyboard shortcuts: <code>g</code>/<code>G</code>: go to first/last image; <code>[</code>/<code>]</code>: go 10
+images back/forward</li>
+<li>Support for mouse wheel zooming (by Dave Reisner)</li>
+<li>Added fullscreen mode</li>
+</ul>
+
+<p><strong><a href="https://github.com/muennich/sxiv/archive/v0.1.tar.gz">v0.1</a></strong>
+<em>(January 21, 2011)</em></p>
+
+<ul>
+<li>Initial release</li>
+</ul>
+</body></html>
