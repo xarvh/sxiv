@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <signal.h>
+#include <ctype.h>
 #include <sys/select.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -456,6 +457,17 @@ void on_keypress(XKeyEvent *kev)
 			return;
 		}
 	}
+
+  if (isprint(ksym)) {
+    /* default to external command */
+    char key_string[] = { ksym, '\0'};
+    if (setenv("SXIV_KEY", key_string, 1) < 0) {
+      warn("could not set env.-variable: SXIV_KEY");
+      return;
+    }
+
+    it_shell_cmd("sxiv-command");
+  }
 }
 
 void on_buttonpress(XButtonEvent *bev)

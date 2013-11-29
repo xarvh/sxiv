@@ -155,20 +155,6 @@ static const keymap_t keys[] = {
 
 	/* open current image with given program: */
 	{ true,   XK_g,             it_open_with,         (arg_t) "gimp" },
-
-	/* run shell command line on current file ("$SXIV_IMG"): */
-	{ true,   XK_less,          it_shell_cmd,         (arg_t) \
-			"mogrify -rotate -90 \"$SXIV_IMG\"" },
-	{ true,   XK_greater,       it_shell_cmd,         (arg_t) \
-			"mogrify -rotate +90 \"$SXIV_IMG\"" },
-	{ true,   XK_question,      it_shell_cmd,         (arg_t) \
-			"mogrify -rotate 180 \"$SXIV_IMG\"" },
-	{ true,   XK_comma,         it_shell_cmd,         (arg_t) \
-			"jpegtran -rotate 270 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
-	{ true,   XK_period,        it_shell_cmd,         (arg_t) \
-			"jpegtran -rotate  90 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
-	{ true,   XK_slash,         it_shell_cmd,         (arg_t) \
-			"jpegtran -rotate 180 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\"" },
 };
 
 /* mouse button mappings for image mode: */
