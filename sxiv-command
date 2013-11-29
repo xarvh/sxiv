@@ -1,0 +1,16 @@
+#!/bin/bash
+
+case "$SXIV_KEY" in
+
+  "<") mogrify -rotate -90 \"$SXIV_IMG\" ;;
+  ">") mogrify -rotate +90 \"$SXIV_IMG\" ;;
+  "?") mogrify -rotate 180 \"$SXIV_IMG\" ;;
+
+  ",") jpegtran -rotate 270 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\" ;;
+  ".") jpegtran -rotate 90 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\" ;;
+  "/") jpegtran -rotate 180 -copy all -outfile \"$SXIV_IMG\" \"$SXIV_IMG\" ;;
+
+  *) echo $0 called with key $SXIV_KEY
+
+esac
+

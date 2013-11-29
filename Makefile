@@ -30,6 +30,7 @@ clean:
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp sxiv $(DESTDIR)$(PREFIX)/bin/
+	cp sxiv-command $(DESTDIR)$(PREFIX)/bin/
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/sxiv
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s!PREFIX!$(PREFIX)!g; s!VERSION!$(VERSION)!g" sxiv.1 > $(DESTDIR)$(MANPREFIX)/man1/sxiv.1
@@ -40,5 +41,6 @@ install: all
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/sxiv
+	rm -f $(DESTDIR)$(PREFIX)/bin/sxiv-command
 	rm -f $(DESTDIR)$(MANPREFIX)/man1/sxiv.1
 	rm -rf $(DESTDIR)$(PREFIX)/share/sxiv
